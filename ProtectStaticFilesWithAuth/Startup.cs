@@ -1,14 +1,8 @@
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -60,9 +54,13 @@ namespace ProtectStaticFilesWithAuth
 
                         if (!ctx.Context.User.Identity.IsAuthenticated)
                         {
+                            // respond HTTP 401 Unauthorized with empty body.
                             ctx.Context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
                             ctx.Context.Response.ContentLength = 0;
                             ctx.Context.Response.Body = Stream.Null;
+
+                            // - or, redirect to another page. -
+                            // ctx.Context.Response.Redirect("/");
                         }
                     }
                 }
