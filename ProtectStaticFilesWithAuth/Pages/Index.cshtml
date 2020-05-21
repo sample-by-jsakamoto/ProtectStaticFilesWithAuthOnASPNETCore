@@ -1,0 +1,50 @@
+﻿@page
+@model IndexModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Protect Static Files with Authentication on ASP.NET Core</title>
+    <style>
+        body {
+            max-width: 42em;
+            margin: 0 auto;
+            font-family: sans-serif;
+            font-size: 16px;
+            padding: 10px 40px;
+        }
+
+        img {
+            width: 24px;
+            vertical-align: middle;
+            margin-right: 6px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Protect Static Files with Authentication on ASP.NET Core</h1>
+
+    <form method="post">
+        @if (this.User.Identity.IsAuthenticated)
+        {
+            <p>Status: 👌 Signed in -  User name: @this.User.Identity.Name</p>
+            <p><input type="submit" name="command" value="Sign out" /></p>
+        }
+        else
+        {
+            <p>Status: 🔒 Signed out</p>
+            <p><input type="submit" name="command" value="Sign in" /></p>
+        }
+        <p>Link to static files: </p>
+        <ul>
+            <li><a href="secretfiles/top-secret.txt" target="_blank">secret file</a></li>
+            <li><a href="non-secret.txt" target="_blank">non secret file</a></li>
+        </ul>
+    </form>
+
+    <hr />
+
+    <p>Source code is <a href="https://github.com/sample-by-jsakamoto/ProtectStaticFilesWithAuthOnASPNETCore" target="_blank"><img src="https://github.com/favicon.ico" />here.</a></p>
+</body>
+</html>
